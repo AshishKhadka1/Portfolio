@@ -1,23 +1,26 @@
-// Smooth scrolling for navigation links
-document.querySelectorAll('nav a').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        e.preventDefault();
+function scrollToElement(elementSelector, instance = 0) {
+    // Select all elements that match the given selector
+    const elements = document.querySelectorAll(elementSelector);
+    // Check if there are elements matching the selector and if the requested instance exists
+    if (elements.length > instance) {
+        // Scroll to the specified instance of the element
+        elements[instance].scrollIntoView({ behavior: 'smooth' });
+    }
+}
 
-        const targetId = this.getAttribute('href').substring(1);
-        const targetSection = document.getElementById(targetId);
+const link1 = document.getElementById("link1");
+const link2 = document.getElementById("link2");
+const link3 = document.getElementById("link3");
 
-        window.scrollTo({
-            top: targetSection.offsetTop,
-            behavior: 'smooth'
-        });
-    });
+link1.addEventListener('click', () => {
+    scrollToElement('.header');
 });
 
-// Form submission (you can add your own logic)
-document.getElementById('contact-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const formData = new FormData(this);
+link2.addEventListener('click', () => {
+    // Scroll to the second element with "header" class
+    scrollToElement('.header', 1);
+});
 
-    // Here, you can use AJAX or any other method to handle form submission
-    console.log('Form data:', formData);
+link3.addEventListener('click', () => {
+    scrollToElement('.column');
 });
